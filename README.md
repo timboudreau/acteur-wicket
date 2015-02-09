@@ -1,11 +1,15 @@
 acteur-wicket
 =============
 
-Experimental integration of Apache Wicket into Acteur;  at this point not very
+Experimental integration of [Apache Wicket](http://wicket.apache.org) into Acteur;  at this point not very
 developed, but works to run a single-page test application
-(run the class `WicketActeurModuleTest`).
+(run the class `WicketActeurModuleTest` in the test packages).
 
-Plenty to do on it, but the basics work.
+This means running Wicket applications without any servlets or servlet containers,
+using [Netty](http://netty.io) and [Acteur](http://timboudreau.com/blog/updatedActeur/read)
+to handle the plumbing of network I/O and HTTP protocol.
+
+Plenty to do on it, but the basics work, so it has some promise.  Help getting it further will be appreciated.
 
 Unfortunately, most Wicket applications routinely cast to `HttpServletRequest`
 and `ServletWebRequest`;  even Wicket's internals assume a `WicketFilter` is
