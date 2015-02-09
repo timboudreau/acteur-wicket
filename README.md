@@ -147,7 +147,8 @@ hot-load code.  What if your server started so fast you didn't even *care* about
 see that for what it is - a hack to work around a broken environment.  NodeJS and Netty users enjoy those kinds
 of startup times today.  You can too.
 
-Thirdly, Java EE is a legacy of an era when the industry had an unhealthy fetish for XML.  Descriptors are
+Thirdly, Java EE is the legacy of an era when the industry had an unhealthy fetish for XML - and a thing
+designed when nobody knew what the web would *become*.  Descriptors are
 painful to work with, verbose, overkill for most configuration needs, and difficult to modify at deployment-time.
 
 Forthly, while Java EE is trying to add asynchronous I/O now, the ecosystem has thread-per-socket, synchronous I/O
