@@ -77,7 +77,7 @@ static class WAM extends WicketActeurModule {
 The Code
 --------
 
-The meat of the code that is not adapters for other things is in
+The meat of the code that is not adapters for Wicket and Servlet API classes is in
 
  * `WicketApplicationInitializer` - does the things WicketFilter does to get
 the application ready for use, does a few hacks to set the page factory
