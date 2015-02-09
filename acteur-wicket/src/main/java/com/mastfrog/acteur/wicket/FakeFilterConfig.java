@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.mastfrog.acteur.wicket.emulation;
+package com.mastfrog.acteur.wicket;
 
 import com.mastfrog.settings.Settings;
 import java.util.Enumeration;
@@ -31,10 +31,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 
 /**
+ * A fake filter config for use with FakeWicketFilter to make things work.
  *
  * @author Tim Boudreau
  */
-public class FakeFilterConfig implements FilterConfig {
+final class FakeFilterConfig implements FilterConfig {
     private final ServletContext ctx;
     private final Settings settings;
 

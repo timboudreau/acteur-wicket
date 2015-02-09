@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.mastfrog.acteur.wicket.emulation;
+package com.mastfrog.acteur.wicket;
 
 import com.google.inject.Provider;
 import com.mastfrog.acteur.wicket.WicketConfig;
@@ -36,10 +36,13 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
 
 /**
+ * Wicket's API requires that a WicketFilter instance be present even when
+ * it is not running in a servlet container, so this is a mock that allows
+ * Wicket to start.
  *
  * @author Tim Boudreau
  */
-public class FakeWicketFilter extends WicketFilter implements IWebApplicationFactory, Runnable {
+final class FakeWicketFilter extends WicketFilter implements IWebApplicationFactory, Runnable {
     private final Provider<Application> app;
     private final WicketConfig config;
     private final FilterConfig filterConfig;
@@ -90,5 +93,10 @@ public class FakeWicketFilter extends WicketFilter implements IWebApplicationFac
     @Override
     public void destroy(WicketFilter filter) {
         filter.destroy();
+    }
+
+    @Override
+    public void init(boolean isServlet, FilterConfig filterConfig) throws ServletException {
+        throw new UnsupportedOperationException("Do not call - we are not in a servlet container");
     }
 }

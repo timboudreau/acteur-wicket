@@ -29,6 +29,7 @@ import io.netty.handler.codec.http.Cookie;
 import io.netty.handler.codec.http.DefaultCookie;
 
 /**
+ * Interconverts between Servlet and Netty cookies.
  *
  * @author Tim Boudreau
  */

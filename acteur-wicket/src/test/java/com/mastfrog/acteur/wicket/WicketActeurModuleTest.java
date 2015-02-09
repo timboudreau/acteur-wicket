@@ -34,6 +34,7 @@ import com.mastfrog.settings.Settings;
 import com.mastfrog.settings.SettingsBuilder;
 
 /**
+ * Starts a one-page application borrowed from wicket-examples.
  *
  * @author Tim Boudreau
  */

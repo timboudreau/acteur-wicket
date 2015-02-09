@@ -24,6 +24,8 @@
 package com.mastfrog.acteur.wicket.adapters;
 
 /**
+ * Implements the servlet cookie interface, delegating to an instance of
+ * the Netty cookie interface.
  *
  * @author Tim Boudreau
  */

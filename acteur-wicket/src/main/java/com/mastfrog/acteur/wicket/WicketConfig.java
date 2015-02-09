@@ -27,10 +27,26 @@ import java.util.Locale;
 import org.apache.wicket.Application;
 
 /**
+ * Configuration for a Wicket server - the stuff the framework needs to
+ * know to launch your application.  You can either implement this and pass
+ * it to the constructor of `WicketActeurModule` or you can just pass the
+ * application class and it will generate one using the system locale.
+ * <p>
+ * This should not be considered a stable API - if needed, things like init
+ * params (if there's really something Settings is not good enough for) may be
+ * added here.
  *
  * @author Tim Boudreau
  */
 public interface WicketConfig {
+    /**
+     * The application class
+     * @return The application class
+     */
     public Class<? extends Application> applicationClass();
+    /**
+     * The default locale
+     * @return 
+     */
     public Locale locale();
 }

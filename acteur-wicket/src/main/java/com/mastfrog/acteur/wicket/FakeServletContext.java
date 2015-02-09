@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.mastfrog.acteur.wicket.emulation;
+package com.mastfrog.acteur.wicket;
 
 import com.google.common.collect.Maps;
 import com.mastfrog.acteur.server.PathFactory;
@@ -49,7 +49,7 @@ import javax.servlet.ServletException;
  *
  * @author Tim Boudreau
  */
-public class FakeServletContext implements ServletContext {
+final class FakeServletContext implements ServletContext {
 
     private final WicketConfig config;
     private final PathFactory paths;

@@ -32,12 +32,13 @@ import static com.mastfrog.acteur.headers.Method.OPTIONS;
 import com.mastfrog.acteur.preconditions.Methods;
 
 /**
+ * Handles all HTTP Options requests the same way WicketFilter does.
  *
  * @author Tim Boudreau
  */
 @HttpCall(order=Integer.MAX_VALUE-1)
 @Methods(OPTIONS)
-public class OptionsActeur extends Acteur {
+final class OptionsActeur extends Acteur {
 
     OptionsActeur() {
         // Duplicates a block in WicketFilter.processRequest()

@@ -28,23 +28,36 @@ import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * The ID of the current session, as set in the jsessionid cookie.  The
+ * value of its toString() method returns the ID value.  The EnsureSessionId
+ * acteur guarantees that the cookie is set and any object created with Guice
+ * can have this value injected.
  *
  * @author Tim Boudreau
  */
-public class SessionId implements Serializable {
+class SessionId implements Serializable {
 
     private static final AtomicLong ids = new AtomicLong(Long.MIN_VALUE);
     private final String id;
+    private static final long LOAD_TIME = System.currentTimeMillis();
 
+    /**
+     * Create a session id with a known value
+     * @param id The ID
+     */
     public SessionId(String id) {
         this.id = id;
     }
 
+    /**
+     * Create a new session id
+     */
     public SessionId() {
         String rnd = GUIDFactory.get().newGUID(2, 5);
         String inc = Long.toString(ids.getAndIncrement(), 36);
         String dt = Long.toString(System.currentTimeMillis(), 36);
-        this.id = rnd + ':' + inc + ':' + dt;
+        String lt = Long.toString(LOAD_TIME, 36);
+        this.id = rnd + ':' + inc + ':' + dt + ':' + lt;
     }
 
     public boolean equals(Object o) {

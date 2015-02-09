@@ -26,6 +26,9 @@ package com.mastfrog.acteur.wicket;
 import com.mastfrog.acteur.Acteur;
 import com.mastfrog.acteur.HttpEvent;
 import com.mastfrog.acteur.headers.Headers;
+import static com.mastfrog.acteur.wicket.WicketActeurModule.DEFAULT_SESSION_COOKIE_MAX_AGE_HOURS;
+import static com.mastfrog.acteur.wicket.WicketActeurModule.SETTINGS_KEY_SESSION_COOKIE_MAX_AGE_HOURS;
+import com.mastfrog.settings.Settings;
 import io.netty.handler.codec.http.Cookie;
 import io.netty.handler.codec.http.DefaultCookie;
 import javax.inject.Inject;
@@ -34,21 +37,24 @@ import org.apache.wicket.protocol.http.IRequestLogger;
 import org.joda.time.Duration;
 
 /**
+ * Ensures that a jsessionid cookie is set and the current session id is
+ * available for injection.
  *
  * @author Tim Boudreau
  */
-public class EnsureSessionId extends Acteur {
+final class EnsureSessionId extends Acteur {
 
     public static final Duration MAX_SESSION_AGE = Duration.standardDays(1);
 
     @Inject
-    EnsureSessionId(HttpEvent evt, Application app) {
+    EnsureSessionId(HttpEvent evt, Application app, Settings settings) {
         SessionId id = findSessionId(evt);
         if (id == null) {
             id = new SessionId();
-            System.out.println("Put session id " + id);
             DefaultCookie ck = new DefaultCookie(ActeurSessionStore.COOKIE_NAME, id.toString());
-            ck.setMaxAge(MAX_SESSION_AGE.getMillis());
+            long maxAge = Duration.standardHours(
+                    settings.getLong(SETTINGS_KEY_SESSION_COOKIE_MAX_AGE_HOURS, DEFAULT_SESSION_COOKIE_MAX_AGE_HOURS)).toStandardSeconds().getSeconds();
+            ck.setMaxAge(maxAge);
             add(Headers.SET_COOKIE, ck);
             String sv = Headers.COOKIE.toString(new Cookie[]{ck});
             evt.getRequest().headers().add(Headers.SET_COOKIE.name(), sv);
@@ -60,6 +66,11 @@ public class EnsureSessionId extends Acteur {
         setState(new ConsumedLockedState(id));
     }
 
+    /**
+     * Locate the session id in the request cookies
+     * @param evt The HTTP request
+     * @return A session id if the cookie is present, or null if it is not
+     */
     static SessionId findSessionId(HttpEvent evt) {
         Cookie[] cookies = evt.getHeader(Headers.COOKIE);
         SessionId result = null;

@@ -41,6 +41,7 @@ import org.apache.wicket.util.time.Time;
 import org.joda.time.DateTime;
 
 /**
+ * Wraps an Acteur HttpEvent as a Wicket Request object.
  *
  * @author Tim Boudreau
  */

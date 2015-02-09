@@ -38,6 +38,8 @@ import org.apache.wicket.session.ISessionStore;
 import org.apache.wicket.util.IProvider;
 
 /**
+ * Class which performs pre-initialization on the application - does the
+ * same things that WicketFilter.init() does in a servlet-based container.
  *
  * @author Tim Boudreau
  */

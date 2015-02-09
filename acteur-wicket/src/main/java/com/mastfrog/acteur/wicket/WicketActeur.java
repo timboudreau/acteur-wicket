@@ -57,7 +57,7 @@ import org.apache.wicket.request.cycle.RequestCycle;
 @HttpCall(order = Integer.MAX_VALUE, scopeTypes = {SessionId.class, Request.class, Response.class, com.mastfrog.acteur.Response.class})
 @Methods({GET, PUT, POST, DELETE, HEAD})
 @Precursors(EnsureSessionId.class)
-public class WicketActeur extends Acteur {
+final class WicketActeur extends Acteur {
 
     @Inject
     WicketActeur(HttpEvent evt, Application application, PathFactory pf, Charset charset, WicketConfig config, ByteBufAllocator alloc, Settings settings, ReentrantScope scope) {

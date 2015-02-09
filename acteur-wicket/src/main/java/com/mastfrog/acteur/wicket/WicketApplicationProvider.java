@@ -32,11 +32,12 @@ import javax.inject.Provider;
 import org.apache.wicket.Application;
 
 /**
+ * Injects the application, ensuring it is initialized first.
  *
  * @author Tim Boudreau
  */
 @Singleton
-public class WicketApplicationProvider implements Provider<Application> {
+class WicketApplicationProvider implements Provider<Application> {
     
     private final Application application;
     

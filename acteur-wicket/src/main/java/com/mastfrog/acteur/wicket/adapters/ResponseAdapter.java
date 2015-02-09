@@ -49,6 +49,8 @@ import org.apache.wicket.util.time.Time;
 import org.joda.time.DateTime;
 
 /**
+ * Wraps an Acteur Response object and exposes it as a Wicket WebResponse
+ * object.
  *
  * @author Tim Boudreau
  */

@@ -1,4 +1,27 @@
-package com.mastfrog.acteur.wicket.page;
+/*
+ * The MIT License
+ *
+ * Copyright 2015 Tim Boudreau
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package com.mastfrog.acteur.wicket;
 
 import com.google.inject.Singleton;
 import com.mastfrog.giulius.Dependencies;
@@ -19,33 +42,21 @@ import org.apache.wicket.util.lang.Generics;
  * @author Tim Boudreau
  */
 @Singleton
-public class GuicePageFactory implements IPageFactory {
+class GuicePageFactory implements IPageFactory {
 
     private final ReentrantScope requestScope;
     private final ConcurrentMap<String, Boolean> pageToBookmarkableCache = Generics.newConcurrentHashMap();
     private final Dependencies deps;
-    private final IPageInstantiationInterceptor interceptor;
-    private final boolean isNoOp;
 
     @Inject
-    public GuicePageFactory(Dependencies deps, IPageInstantiationInterceptor interceptor, ReentrantScope scope) {
+    public GuicePageFactory(Dependencies deps, ReentrantScope scope) {
         requestScope = scope;
         this.deps = deps;
-        this.interceptor = interceptor;
-        this.isNoOp = interceptor instanceof NoOpPageInstantiationInterceptor;
     }
 
     @Override
     public <C extends IRequestablePage> C newPage(Class<C> type) {
-        C result = deps.getInstance(type);
-        if (!isNoOp) {
-            try {
-                interceptor.onInstantiation(result);
-            } catch (Exception ex) {
-                return Exceptions.chuck(ex);
-            }
-        }
-        return result;
+        return deps.getInstance(type);
     }
 
     @Override
