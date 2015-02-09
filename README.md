@@ -143,7 +143,7 @@ to cram as many web applications into one process as possible.  Today, you're ve
 virtual OS - *that's* your container.  They're an optimization for a world that no longer exists.
 
 Secondly, startup time for many of them is painfully slow.  The usual answer is to use JRebel or similar to
-hot-load code.  What if your server started so fast you didn't even *care* about hot-loading code - you could
+hot-load code.  What if your server started so fast you didn't even *care* about hot-loading code?  You could
 see that for what it is - a hack to work around a broken environment.  NodeJS and Netty users enjoy those kinds
 of startup times today.  You can too.
 
