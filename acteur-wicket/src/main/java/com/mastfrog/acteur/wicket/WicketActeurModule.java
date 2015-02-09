@@ -90,7 +90,8 @@ public class WicketActeurModule extends AbstractModule {
         bind(FilterConfig.class).to(FakeFilterConfig.class).in(Scopes.SINGLETON);
         bind(ISessionStore.class).to(ActeurSessionStore.class).in(Scopes.SINGLETON);
         // Make sure a PageParameters is always available, for instantiating
-        // pages
+        // pages - will be overrlaid with the page parameters in created from
+        // the URL by the GuicePageFactory if there are real parameters to use
         binder().bind(PageParameters.class).toProvider(
                 scope.provider(PageParameters.class, new EmptyPageParametersProvider()));
         // Our custom page factory that will use Guice to create page instances
