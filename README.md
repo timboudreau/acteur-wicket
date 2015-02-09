@@ -1,7 +1,10 @@
 acteur-wicket
 =============
 
-Experimental integration of [Apache Wicket](http://wicket.apache.org) into Acteur;  at this point not very
+Run Wicket applications without a servlet container or any servlets at all.
+
+Experimental integration of [Apache Wicket](http://wicket.apache.org) into 
+[Acteur](http://timboudreau.com/blog/updatedActeur/read);  at this point not very
 developed, but works to run a single-page test application
 (run the class `WicketActeurModuleTest` in the test packages).
 
@@ -9,7 +12,7 @@ This means running Wicket applications without any servlets or servlet container
 using [Netty](http://netty.io) and [Acteur](http://timboudreau.com/blog/updatedActeur/read)
 to handle the plumbing of network I/O and HTTP protocol.
 
-Plenty to do on it, but the basics work, so it has some promise.  Help getting it further will be appreciated.
+Plenty to do on it, but the basics work, so it has some promise.
 
 Unfortunately, most Wicket applications routinely cast to `HttpServletRequest`
 and `ServletWebRequest`;  even Wicket's internals assume a `WicketFilter` is
@@ -26,9 +29,10 @@ back when one chunk has been flushed to the socket.
  * Microscopic memory footprint, as compared with most application servers
 (wicket definitely adds memory requirements;  a small Acteur application such
 as [tiny-maven-proxy](https://github.com/timboudreau/tiny-maven-proxy) can run
-in 7Mb.
+in 7Mb).
  * No XML - and not because something is generating it under the hood - your
-server is a program and you can run it, period.
+server is a program and you can run it, period.  Flexible configuration can be
+done using properties files (uses [Giulius](https://github.com/timboudreau/giulius) under the hood)
 
 
 Usage
@@ -41,7 +45,8 @@ with it, build your server and start it.
 Unlike with servlet containers, there is *no* XML, deployment descriptors
 or similar (if you think that's a bad thing, this project is not for you).
 
-Here is the startup code for the example, `WicketActeurModuleTest` in the
+Here is the startup code for the example, 
+[WicketActeurModuleTest](https://github.com/timboudreau/acteur-wicket/blob/master/acteur-wicket/src/test/java/com/mastfrog/acteur/wicket/WicketActeurModuleTest.java#L42) in the
 tests classes:
 
 ```java
