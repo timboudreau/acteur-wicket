@@ -111,6 +111,7 @@ To-Do
  * [acteur-resources](https://github.com/timboudreau/acteur/tree/master/acteur-resources) has good 
 support for serving static files that should be integrated - right now these need to be mounted with code
 
+
 Packaging And Deployment
 ------------------------
 
@@ -120,3 +121,18 @@ plugin to build a merged JAR which automatically coalesces Acteur's generated fi
 of setting the main class name.
 
 Then run it with good old `java -jar`.
+
+
+Things You Get For Free Using Acteur Under The Hood
+---------------------------------------------------
+
+ * Use the [statistics](https://github.com/timboudreau/giulius-web/tree/master/statistics) library to create
+JMX MBeans with a few annotations on any object created by Guice
+ * Use the [statsd-aop](https://github.com/timboudreau/giulius-web/tree/master/statsd-aop) integration to
+fire metrics at a [statsd](https://github.com/etsy/statsd/) server by annotating methods on Guice-created objects
+ * Use [acteur-jdbc](https://github.com/timboudreau/acteur/tree/master/acteur-jdbc) for easy JDBC integration (uses BoneCP)
+ * Trivially add [bunyan compatible JSON logging](https://github.com/timboudreau/bunyan-java)
+ * Easy to integrate with [mongodb](https://github.com/timboudreau/acteur/tree/master/acteur-mongo)
+
+
+
