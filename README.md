@@ -135,4 +135,24 @@ fire metrics at a [statsd](https://github.com/etsy/statsd/) server by annotating
  * Easy to integrate with [mongodb](https://github.com/timboudreau/acteur/tree/master/acteur-mongo)
 
 
+Why Would You Want To Get Rid Of Your Servlet Container?
+--------------------------------------------------------
 
+Servlet containers are obsolete.  In the days when a powerful server might have 64Mb of memory, it made sense
+to cram as many web applications into one process as possible.  Today, you're very likely deploying an entire
+virtual OS - *that's* your container.  They're an optimization for a world that no longer exists.
+
+Secondly, startup time for many of them is painfully slow.  The usual answer is to use JRebel or similar to
+hot-load code.  What if your server started so fast you didn't even *care* about hot-loading code - you could
+see that for what it is - a hack to work around a broken environment.  NodeJS and Netty users enjoy those kinds
+of startup times today.  You can too.
+
+Thirdly, Java EE is a legacy of an era when the industry had an unhealthy fetish for XML.  Descriptors are
+painful to work with, verbose, overkill for most configuration needs, and difficult to modify at deployment-time.
+
+Forthly, while Java EE is trying to add asynchronous I/O now, the ecosystem has thread-per-socket, synchronous I/O
+baked into its bones.  While Wicket is part of that world and assumes blocking I/O, if it ever hopes to escape
+from that world, something like this is how it will happen.
+
+In short, you escape from a world of legacy bloat, and return to a world where your code is a program, and you
+can run it - without needing to draw a pentagram on the floor, stand in it and draw XML tags in the air.
