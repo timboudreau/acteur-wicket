@@ -27,7 +27,7 @@ import com.mastfrog.acteur.server.PathFactory;
 import com.mastfrog.acteur.server.ServerBuilder;
 import com.mastfrog.acteur.server.ServerModule;
 import com.mastfrog.acteur.util.Server;
-import com.mastfrog.acteur.wicket.borrowed.HomePageApplication;
+import com.mastfrog.acteur.wicket.borrowed.NavomaticApplication;
 import static com.mastfrog.giulius.SettingsBindings.*;
 import com.mastfrog.guicy.scope.ReentrantScope;
 import com.mastfrog.settings.Settings;
@@ -66,7 +66,7 @@ public class WicketActeurModuleTest {
         // Settings or both in its constructor - the scope is part of the way
         // Acteur creates dynamic constructor arguments using request contents
         HomePageApplicationModule(ReentrantScope scope) {
-            super(HomePageApplication.class, scope);
+            super(NavomaticApplication.class, scope);
         }
     }
 }

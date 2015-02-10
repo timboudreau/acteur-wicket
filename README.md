@@ -50,27 +50,35 @@ Here is the startup code for the example,
 tests classes:
 
 ```java
-public static void main(String[] args) throws Exception {
-    Settings settings = new SettingsBuilder("acteur-wicket")
-            .add(PathFactory.EXTERNAL_PORT, "5757")
-            .add(ServerModule.PORT, "5757")
-            .addFilesystemAndClasspathLocations()
-            .parseCommandLineArguments(args)
-            .buildMutableSettings();
+    public static void main(String[] args) throws Exception {
+        // All of these settings can be overridden by
+        // values in /etc/acteur-wicket.properties, /opt/local/etc/acteur-wicket.properties,
+        // ~/acteur-wicket.properties and ./acteur-wicket.properties in that order,
+        // or by command-line arguments in the form, e.g. --port 8080
+        Settings settings = new SettingsBuilder("acteur-wicket")
+                .add(ServerModule.PORT, "5757") // set the default port
+                .add(PathFactory.EXTERNAL_PORT, "5757") // ensures redirects go to the local port
+                .addFilesystemAndClasspathLocations()
+                .parseCommandLineArguments(args)
+                .build();
 
-    Server server = new ServerBuilder("acteur-wicket")
-            .add(WAM.class)
-            .add(settings)
-            .build();
-    server.start();
-}
-
-static class WAM extends WicketActeurModule {
-
-    WAM(ReentrantScope scope) {
-        super(HomePageApplication.class, scope);
+        Server server = new ServerBuilder("acteur-wicket")
+                .add(HomePageApplicationModule.class)
+                .add(settings)
+                .enableOnlyBindingsFor(BOOLEAN, INT, LONG) // minor optimization
+                .build();
+        server.start();
     }
-}
+
+    static class HomePageApplicationModule extends WicketActeurModule {
+
+        // ServerBuilder can instantiate a module which takes a ReentrantScope
+        // Settings or both in its constructor - the scope is part of the way
+        // Acteur creates dynamic constructor arguments using request contents
+        HomePageApplicationModule(ReentrantScope scope) {
+            super(NavomaticApplication.class, scope);
+        }
+    }
 ```
 
 

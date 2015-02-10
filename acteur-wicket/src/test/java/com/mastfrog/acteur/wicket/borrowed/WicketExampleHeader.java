@@ -44,7 +44,7 @@ public final class WicketExampleHeader extends Panel
 	{
 		super(id);
 
-		add(new DebugBar("debug"));
+//		add(new DebugBar("debug"));
 		add(new Label("exampleTitle", exampleTitle));
 		BookmarkablePageLink<Void> link = new BookmarkablePageLink<Void>("sources",
 			SourcesPage.class, SourcesPage.generatePageParameters(page));
